@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzh.un.smart.campus.basicdata.service.mapper.TeacherMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lxzh.un.smart.campus.basicdata.service.entity.Teacher">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="job_number" property="jobNumber" />
+        <result column="name" property="name" />
+        <result column="sex" property="sex" />
+        <result column="avatar" property="avatar" />
+        <result column="birthday" property="birthday" />
+        <result column="nationality" property="nationality" />
+        <result column="native_place" property="nativePlace" />
+        <result column="political" property="political" />
+        <result column="marriage_status" property="marriageStatus" />
+        <result column="education" property="education" />
+        <result column="graduate_school" property="graduateSchool" />
+        <result column="major" property="major" />
+        <result column="certificate_type" property="certificateType" />
+        <result column="certificate_num" property="certificateNum" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="address" property="address" />
+        <result column="dept_id" property="deptId" />
+        <result column="job" property="job" />
+        <result column="role_id" property="roleId" />
+        <result column="title" property="title" />
+        <result column="employee_type" property="employeeType" />
+        <result column="join_job_time" property="joinJobTime" />
+        <result column="join_campus_time" property="joinCampusTime" />
+        <result column="job_status" property="jobStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="create_by" property="createBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_flag" property="delFlag" />
+    </resultMap>
+
+    <select id="getJobNumber" resultType="java.lang.String">
+        SELECT
+            job_number
+        FROM
+            teacher
+        WHERE
+            job_number = #{jobNumber} and del_flag = 0
+    </select>
+
+    <select id="getPhone" resultType="java.lang.String">
+        SELECT
+            phone
+        FROM
+            teacher
+        WHERE
+            phone = #{phone} and del_flag = 0
+    </select>
+
+    <select id="getOtherPhone" resultType="java.lang.String">
+        SELECT
+            phone
+        FROM
+            teacher
+        WHERE
+            phone = #{phone}
+        and
+            id != #{id}
+        and
+            del_flag = 0
+    </select>
+
+    <select id="getCertificateNumber" resultType="java.lang.String">
+        SELECT
+            certificate_num
+        FROM
+            teacher
+        WHERE
+            certificate_num = #{certificateNumber} and del_flag = 0
+    </select>
+
+    <select id="getOtherJobNumber" resultType="java.lang.String">
+        SELECT
+            job_number
+        FROM
+            teacher
+        WHERE
+            job_number = #{jobNumber}
+        and
+            id != #{id}
+        and
+            del_flag = 0
+    </select>
+
+    <select id="findTeacherPage" resultType="com.lxzh.un.smart.campus.basicdata.service.model.TeacherModel">
+        SELECT
+            id,
+            job_number,
+            name,
+            sex,
+            birthday,
+            job,
+            title,
+            employee_type,
+            job_status,
+            create_time
+        FROM
+            teacher
+        WHERE
+            del_flag = 0
+        <if test="null != searchModel">
+            <if test="searchModel.name != null and searchModel.name != ''">
+                AND name like concat('%',#{searchModel.name},'%')
+            </if>
+            <if test="searchModel.phone != null and searchModel.phone != ''">
+                AND phone like concat('%',#{searchModel.phone},'%')
+            </if>
+            <if test="searchModel.deptId != null and searchModel.deptId != ''">
+                AND dept_id = #{searchModel.deptId}
+            </if>
+            <if test="searchModel.job != null and searchModel.job != ''">
+                AND job = #{searchModel.job}
+            </if>
+            <if test="searchModel.title != null and searchModel.title != ''">
+                AND title = #{searchModel.title}
+            </if>
+            <if test="searchModel.employeeType != null and searchModel.employeeType != ''">
+                AND employee_type = #{searchModel.employeeType}
+            </if>
+            <if test="searchModel.jobStatus != null and searchModel.jobStatus != ''">
+                AND job_status = #{searchModel.jobStatus}
+            </if>
+            <if test="searchModel.jobNumber != null and searchModel.jobNumber != ''">
+                AND job_number like concat('%',#{searchModel.jobNumber},'%')
+            </if>
+            <if test="searchModel.nativePlace != null and searchModel.nativePlace != ''">
+                AND native_place = #{searchModel.nativePlace}
+            </if>
+            <if test="searchModel.joinCampusTimeStart != null and searchModel.joinCampusTimeEnd != null
+            and searchModel.joinCampusTimeStart != '' and searchModel.joinCampusTimeEnd != ''">
+                AND join_campus_time <![CDATA[ >= ]]> #{searchModel.joinCampusTimeStart}
+                AND join_campus_time <![CDATA[ <= ]]> #{searchModel.joinCampusTimeEnd}
+            </if>
+            <if test="searchModel.birthdayStart != null and searchModel.birthdayEnd != null and
+            searchModel.birthdayStart != '' and searchModel.birthdayEnd != ''">
+                AND birthday <![CDATA[ >= ]]> #{searchModel.birthdayStart}
+                AND birthday <![CDATA[ <= ]]> #{searchModel.birthdayEnd}
+            </if>
+        </if>
+        order by
+            create_time desc
+    </select>
+
+    <update id="updateTeacherStatus">
+        UPDATE teacher
+        SET job_status = #{status}
+        where
+            user_id = #{userId} and del_flag = 0
+    </update>
+
+    <update id="updateTeacherInfo">
+        UPDATE teacher
+        SET job_status = #{status},phone = #{phone},job_number=#{jobNumber},job=#{job},role_id =#{roleId},name =#{name}
+        WHERE
+            user_id = #{userId} and del_flag = 0
+    </update>
+
+    <select id="getTeacherList" resultType="com.lxzh.un.smart.campus.basicdata.service.dto.TeacherDTO">
+        select id,name,job_number,title titleName,user_id from teacher where del_flag = 0 and (job_status = 1 or job_status = 3)
+    </select>
+
+    <select id="getTeacherNameById" resultType="java.lang.String">
+        select name from teacher where id = #{id}
+    </select>
+
+    <select id="getTeacherNameByUserId" resultType="java.lang.String">
+        select name from teacher where user_id = #{userId}
+    </select>
+
+    <update id="updateAvatar">
+        UPDATE teacher
+        SET avatar = #{avatarId}
+        where
+            user_id = #{userId} and del_flag = 0
+    </update>
+
+    <update id="updateDeptId">
+        UPDATE teacher
+        SET dept_id = #{deptId}
+        where
+            user_id = #{userId} and del_flag = 0
+    </update>
+
+    <select id="getTeachers" resultType="com.lxzh.un.smart.campus.basicdata.service.dto.TeacherDTO">
+        select id,name,job_number,title titleName,user_id from teacher where del_flag = 0 and job_status = 1
+    </select>
+
+    <update id="updateRoleId">
+        UPDATE teacher
+        SET role_id = #{roleId}
+        where
+            user_id = #{userId} and del_flag = 0
+    </update>
+
+    <select id="getTeacherIdByUserId" resultType="java.lang.String">
+        select id from teacher where user_id = #{userId} and del_flag = 0
+    </select>
+</mapper>
