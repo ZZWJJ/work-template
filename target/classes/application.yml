@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: disaster-usregion
+  profiles:
+    active: local
+
+server:
+  port: 8802
+  servlet:
+    context-path: /learn
+
+mybatis-plus:
+  global-config:
+    db-config:
+      field-strategy: not_empty
+      #      db-type: mysql
+      logic-delete-value: 'Y'
+      logic-not-delete-value: 'N'
+    banner: false
+  type-aliases-package: com.fineway.disaster.usregion.serv.com.zzw.learning.entity
+  mapper-locations: classpath*:/com.zzw.learning.mapper/**/*.xml
+  configuration:
+    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    jdbc-type-for-null: 'null'

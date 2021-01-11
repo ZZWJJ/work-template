@@ -1,0 +1,9 @@
+app:
+  id: farming-tangx # 这边的id对应apollo配置里面的AppId
+apollo:
+  meta: http://172.31.246.200:5500 # 这边写开发、测试环境、正式环境对应的部署地址
+  bootstrap:
+    enabled: true
+    namespaces: payment-com.zzw.learning.service.yml  # 如果后缀是properties可以省略，否则必须带上
+    eagerLoad:
+      enabled: true # 一般配置了日志，就必须加上不然不会再日志之前加载配置
