@@ -47,7 +47,7 @@ public class WebConfig implements WebMvcConfigurer {
         properties.put("kaptcha.session.key", "code");
         properties.put("kaptcha.textproducer.char.length", "4");
         properties.put("kaptcha.textproducer.font.names", "宋体,楷体,微软雅黑");
-        properties.put("kaptcha.obscurificator.impl","com.lxzh.un.smart.campus.basicdata.config.NoWaterRipple");
+        properties.put("kaptcha.obscurificator.impl","com.zzw.learning.config.NoWaterRipple");
         properties.put("kaptcha.noise.impl","com.google.code.kaptcha.impl.NoNoise");
         Config config = new Config(properties);
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
