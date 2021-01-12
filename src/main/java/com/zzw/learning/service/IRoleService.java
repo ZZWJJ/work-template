@@ -7,7 +7,7 @@ import com.zzw.learning.entity.Role;
 /**
  * 角色服务类
  *
- * @author chenzhang
+ * @author zzw
  * @since 2020-03-31
  */
 public interface IRoleService extends IService<Role> {

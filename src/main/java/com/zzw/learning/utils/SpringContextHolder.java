@@ -1,9 +1,8 @@
 package com.zzw.learning.utils;
 
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 实现对spring context 的管理
@@ -19,8 +18,11 @@ public class SpringContextHolder implements ApplicationContextAware {
     /**
      * 实现ApplicationContextAware接口的context注入函数, 将其存入静态变量.
      */
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        SpringContextHolder.applicationContext = applicationContext; // NOSONAR
+    public SpringContextHolder() {
+    }
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        SpringContextHolder.applicationContext = applicationContext;
     }
 
     /**
@@ -43,17 +45,9 @@ public class SpringContextHolder implements ApplicationContextAware {
     /**
      * 从静态变量ApplicationContext中取得Bean, 自动转型为所赋值对象的类型.
      */
-    @SuppressWarnings("unchecked")
-    public static <T> T getBean(Class<T> clazz) {
+    public static <T> T getBean(Class<T> requiredType) {
         checkApplicationContext();
-        return (T) applicationContext.getBeansOfType(clazz);
-    }
-
-    /**
-     * 清除applicationContext静态变量.
-     */
-    public static void cleanApplicationContext() {
-        applicationContext = null;
+        return applicationContext.getBean(requiredType);
     }
 
     private static void checkApplicationContext() {
@@ -62,21 +56,5 @@ public class SpringContextHolder implements ApplicationContextAware {
                     "applicaitonContext未注入,请在applicationContext.xml中定义SpringContextHolder");
         }
     }
-
-
-//    public static void setHttpRequestResponseHolder(HttpServletRequest request, HttpServletResponse response){
-//        responseThreadLocal.set(response);
-//        ApplicationContext ap = WebApplicationContextUtils.getWebApplicationContext(null);
-//    }
-    public static HttpServletResponse getHttpResponse(){
-        return responseThreadLocal.get();
-    }
-
-    public static void clean(){
-        responseThreadLocal.remove();
-    }
-
-    private static final ThreadLocal<HttpServletResponse> responseThreadLocal = new ThreadLocal();
-
 
 }
