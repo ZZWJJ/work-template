@@ -14,6 +14,7 @@ import io.swagger.annotations.Api;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Encoder;
@@ -47,8 +48,8 @@ public class TeacherController {
     @Autowired
     private Producer producer;
 
-//    @Autowired
-//    private RedisTemplate redisTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 文件上传
@@ -106,7 +107,7 @@ public class TeacherController {
         // create the text for the image
         String capText = producer.createText();
         String uuid = UUID.randomUUID().toString();
-        //redisTemplate.opsForValue().set(uuid, capText);
+        redisTemplate.opsForValue().set(uuid, capText);
         System.out.println("UUID" + uuid + "验证码:" + capText);
         BufferedImage bi = producer.createImage(capText);
         ByteArrayOutputStream out = null;
