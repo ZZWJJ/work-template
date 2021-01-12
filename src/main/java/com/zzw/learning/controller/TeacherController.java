@@ -30,15 +30,15 @@ import java.util.UUID;
 
 /**
  * <p>
- * 教师信息管理 前端控制器
+ * 测试功能接口 前端控制器
  * </p>
  *
  * @author zzw
  * @since 2020-03-31
  */
 @RestController
-@RequestMapping("/{version}/teacher")
-@Api(value = "/{version}/teacher", tags = {"教师信息管理接口"})
+@RequestMapping("/{version}/template")
+@Api(value = "/{version}/template", tags = {"测试功能接口"})
 public class TeacherController {
 
     @Autowired
@@ -59,7 +59,7 @@ public class TeacherController {
      * <p>
      * 3. 直接读即可
      */
-    @ApiOperation(value = "教职工档案批量上传", notes = "教职工档案批量上传")
+    @ApiOperation(value = "批量上传", notes = "批量上传")
     @PostMapping(value = "/import")
     public DCResponse<String> upload(@RequestParam MultipartFile file) {
         campusTeacherService.importTeacher(file);
