@@ -15,7 +15,25 @@ spring:
       database: 8
     port: 6379
 
-whitelist: "11111"
+whitelist:
+  whitelist[0]: "/**/loginByCode"
+  whitelist[1]: "/**/loginByPassword"
+  whitelist[2]: "/**/sendMessageInfo"
+  whitelist[3]: "/**/quickLogin"
+  whitelist[4]: "/**/register"
+  whitelist[5]: "/**/verifyCode"
+  whitelist[6]: "/**/resetPassWord"
+  whitelist[7]: "/**/api-docs"
+  whitelist[8]: "/**/area/**"
+  whitelist[9]: "/**/userRole/listUserRole"
+  whitelist[10]: "/**/completeUser"
+  whitelist[11]: "/**/auth"
+  whitelist[12]: "/**/login"
+  whitelist[13]: "/**/createUser"
+  whitelist[14]: "/**/roles/**"
+  whitelist[15]: "/**/role/**"
+  whitelist[16]: "/**/admin/**"
+  whitelist[17]: "/**/dept/**"
 
 logging:
   level:

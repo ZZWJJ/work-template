@@ -32,7 +32,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     List<String> authUrlList = new ArrayList();
 
     public LoginInterceptor(WhiteListConfig whiteListConfig) {
-        //this.whiteListConfig = whiteListConfig;
+        this.whiteListConfig = whiteListConfig;
         this.authUrlList = whiteListConfig.getWhiteList();
     }
 

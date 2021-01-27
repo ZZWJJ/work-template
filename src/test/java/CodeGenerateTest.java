@@ -16,14 +16,14 @@ public class CodeGenerateTest {
 
         public static void main(String[] args) {
             GenerateParams generateParams = new GenerateParams();
-            generateParams.setOutputDirectory("\\authenticate-cloud-service\\src\\main\\java");
+            generateParams.setOutputDirectory("\\src\\main\\java");
             generateParams.setAuthor("zzw");
-            generateParams.setJdbcUrl("jdbc:mysql://192.168.1.200:3306/basic_server?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=UTC");
+            generateParams.setJdbcUrl("jdbc:mysql://localhost:3306/template?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=UTC");
             generateParams.setJdbcDriver("com.mysql.jdbc.Driver");
-            generateParams.setJdbcUserName("basic");
-            generateParams.setJdbcPassword("basic123456");
-            generateParams.setParentPackage("com.lxzh.authenticate");
-            generateParams.setIncludeTables(new String[]{"dictionary"});
+            generateParams.setJdbcUserName("root");
+            generateParams.setJdbcPassword("123456");
+            generateParams.setParentPackage("com.zzw.learning");
+            generateParams.setIncludeTables(new String[]{"user","app_key"});
             generateParams.setEntityName("%s");
 
             SimpleGenerator.doGeneration(generateParams);
@@ -116,7 +116,7 @@ public class CodeGenerateTest {
                     @Override
                     public String outputFile(TableInfo tableInfo) {
                         // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                        return projectPath + "/basicdata-service/src/main/resources/mapping/" + pc.getModuleName()
+                        return projectPath + "/template/src/main/resources/mapping/" + pc.getModuleName()
                                 + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
                     }
                 });
