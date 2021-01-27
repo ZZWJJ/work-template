@@ -1,8 +1,14 @@
 package com.zzw.learning.Interceptor;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.zzw.learning.exception.ServiceException;
 import com.zzw.learning.model.UserInfo;
 import com.zzw.learning.model.WhiteListConfig;
+import com.zzw.learning.service.IUserService;
 import com.zzw.learning.utils.UserKit;
+import com.zzw.learning.vo.AnalysisTokenVO;
+import com.zzw.learning.vo.LoginUserVO;
+import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +30,8 @@ import java.util.List;
  **/
 public class LoginInterceptor extends HandlerInterceptorAdapter {
     private static final Logger log = LoggerFactory.getLogger(LoginInterceptor.class);
-    //@Autowired
-    //private UserApi authApi;
+    @Autowired
+    private IUserService authApi;
     @Autowired
     private WhiteListConfig whiteListConfig;
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
@@ -37,27 +43,39 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     }
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader("Authorization");
         String servletPath = request.getServletPath();
         Iterator var5 = this.authUrlList.iterator();
-        if (!StringUtils.hasText(token)) {
-            UserKit.init();
-            return true;
-        } else {
-            boolean flag;
-            do {
-                if (!var5.hasNext()) {
-                    //UserInfo userInfo = this.authApi.getUserByToken(token);
-                    //UserKit.set(userInfo);
-                    return true;
+
+        boolean flag;
+        do {
+            String temp;
+            if (!var5.hasNext()) {
+                String token = request.getHeader("Authorization");
+                temp = null;
+
+                if (StringUtil.isNullOrEmpty(token)){
+                    throw new ServiceException(505,"token为空！");
                 }
 
-                String temp = (String)var5.next();
-                flag = this.antPathMatcher.match(temp, servletPath);
-            } while(!flag);
+                try {
+                    AnalysisTokenVO analysisTokenVO = this.authApi.analysisToken(token,request);
+                    if (analysisTokenVO.getValid()) {
+                        LoginUserVO loginUserVO = this.authApi.getUserInfo(request);
+                        UserInfo userInfo = (UserInfo) BeanUtil.toBean(loginUserVO.getUserSimpleVO(), UserInfo.class);
+                        UserKit.set(userInfo);
+                    }
 
-            return true;
-        }
+                    return analysisTokenVO.getValid();
+                } catch (Exception var9) {
+                    throw var9;
+                }
+            }
+
+            temp = (String)var5.next();
+            flag = this.antPathMatcher.match(temp, servletPath);
+        } while(!flag);
+
+        return true;
     }
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {

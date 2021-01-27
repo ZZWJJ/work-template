@@ -3,7 +3,7 @@
 <mapper namespace="com.lxzh.un.smart.campus.basicdata.com.zzw.learning.service.com.zzw.learning.mapper.RoleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lxzh.un.smart.campus.basicdata.service.entity.Role">
+    <resultMap id="BaseResultMap" type="com.zzw.learning.entity.Role">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="create_time" property="createTime"/>

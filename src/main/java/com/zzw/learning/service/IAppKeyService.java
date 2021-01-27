@@ -12,5 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-01-27
  */
 public interface IAppKeyService extends IService<AppKey> {
+    AppKey getExpiredAndSecret(String appKey);
 
+    String getAppKey(Long userId);
 }

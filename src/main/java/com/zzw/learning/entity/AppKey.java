@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -21,7 +22,6 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 public class AppKey extends Model<AppKey> {
 
     private static final long serialVersionUID = 1L;
@@ -93,10 +93,13 @@ public class AppKey extends Model<AppKey> {
     @TableLogic
     private Boolean delFlag;
 
-
     @Override
     protected Serializable pkVal() {
         return this.id;
     }
 
+    public AppKey(String privateKey, Integer expired) {
+        this.privateKey = privateKey;
+        this.expired = expired;
+    }
 }

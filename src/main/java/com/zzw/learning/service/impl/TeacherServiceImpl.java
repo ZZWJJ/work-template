@@ -1,11 +1,7 @@
 package com.zzw.learning.service.impl;
 
 import com.alibaba.excel.EasyExcel;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.zzw.learning.constant.CommonConstants;
@@ -13,11 +9,9 @@ import com.zzw.learning.entity.Teacher;
 import com.zzw.learning.excel.TeacherDataListener;
 import com.zzw.learning.mapper.TeacherMapper;
 import com.zzw.learning.param.TeacherParam;
-import com.zzw.learning.response.DCResponse;
 import com.zzw.learning.service.IRoleService;
 import com.zzw.learning.service.ITeacherService;
 import com.zzw.learning.utils.FileUtil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +21,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * <p>

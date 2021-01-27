@@ -4,6 +4,18 @@ spring:
     url: jdbc:mysql://localhost:3306/template?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: 123456
+
+mybatis-plus:
+  typeAliasesPackage: com.zzw.learning.entity
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  global-config:
+    field-strategy: 1
+    db-config:
+      field-strategy: NOT_NULL
+      id-type: ID_WORKER_STR
+      db-type: mysql
+    banner: false
+
   redis:
     host: 192.168.1.200
     password: 999888V

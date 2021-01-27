@@ -2,6 +2,7 @@ package com.zzw.learning.mapper;
 
 import com.zzw.learning.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author zzw
  * @since 2021-01-27
  */
+@Repository
 public interface UserMapper extends BaseMapper<User> {
 
 }

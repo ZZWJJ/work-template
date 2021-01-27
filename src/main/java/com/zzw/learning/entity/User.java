@@ -30,7 +30,7 @@ public class User extends Model<User> {
      * 主键
      */
     @TableId("id")
-    private Long id;
+    private String id;
 
     /**
      * 用户名

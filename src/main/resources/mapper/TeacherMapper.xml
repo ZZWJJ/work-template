@@ -3,7 +3,7 @@
 <mapper namespace="com.lxzh.un.smart.campus.basicdata.service.mapper.TeacherMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lxzh.un.smart.campus.basicdata.service.entity.Teacher">
+    <resultMap id="BaseResultMap" type="com.zzw.learning.entity.Teacher">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="job_number" property="jobNumber" />
