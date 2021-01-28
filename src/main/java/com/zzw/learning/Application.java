@@ -12,8 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  **/
 @SpringBootApplication
 @MapperScan({"com.zzw.learning.mapper"})
-public class BasicDataApplication {
+public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(BasicDataApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }

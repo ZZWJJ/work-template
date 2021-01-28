@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -28,8 +27,8 @@ import java.util.List;
  * @Description: 登录拦截器
  * @date : 2021/1/12 16:55
  **/
-public class LoginInterceptor extends HandlerInterceptorAdapter {
-    private static final Logger log = LoggerFactory.getLogger(LoginInterceptor.class);
+public class TokenInterceptor extends HandlerInterceptorAdapter {
+    private static final Logger log = LoggerFactory.getLogger(TokenInterceptor.class);
     @Autowired
     private IUserService authApi;
     @Autowired
@@ -37,7 +36,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
     List<String> authUrlList = new ArrayList();
 
-    public LoginInterceptor(WhiteListConfig whiteListConfig) {
+    public TokenInterceptor(WhiteListConfig whiteListConfig) {
         this.whiteListConfig = whiteListConfig;
         this.authUrlList = whiteListConfig.getWhiteList();
     }

@@ -17,7 +17,7 @@ package com.zzw.learning.config;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
-import com.zzw.learning.Interceptor.LoginInterceptor;
+import com.zzw.learning.Interceptor.TokenInterceptor;
 import com.zzw.learning.model.WhiteListConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,8 +44,8 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public LoginInterceptor loginInterceptor() {
-        return new LoginInterceptor(this.whiteListConfig);
+    public TokenInterceptor loginInterceptor() {
+        return new TokenInterceptor(this.whiteListConfig);
     }
 
     @Bean

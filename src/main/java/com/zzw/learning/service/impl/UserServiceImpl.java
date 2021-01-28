@@ -17,8 +17,10 @@ import com.zzw.learning.vo.AnalysisTokenVO;
 import com.zzw.learning.vo.LoginUserVO;
 import com.zzw.learning.vo.UserSimpleVO;
 import io.jsonwebtoken.Claims;
+import io.netty.util.internal.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
