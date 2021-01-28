@@ -4,6 +4,31 @@ spring:
     url: jdbc:mysql://localhost:3306/template?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: 123456
+  redis:
+    host: 192.168.1.200
+    password: 999888V
+    timeout: 2000
+    database: 5
+    civ:
+      database: 6
+    disaster_civ:
+      database: 8
+    port: 6379
+  kafka:
+    bootstrap-servers: 192.168.1.200:9092
+    consumer:
+      group-id: user-log-group
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 100
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      acks: -1
+      client-id: user-log
+      batch-size: 500
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 mybatis-plus:
   typeAliasesPackage: com.zzw.learning.entity
@@ -15,18 +40,6 @@ mybatis-plus:
       id-type: ID_WORKER_STR
       db-type: mysql
     banner: false
-
-  redis:
-    host: 192.168.1.200
-    password: 999888V
-    timeout: 2000
-    database: 5
-    civ:
-      database: 6
-    disaster_civ:
-      database: 8
-    port: 6379
-
 whitelist:
   whitelist[0]: "/**/loginByCode"
   whitelist[1]: "/**/loginByPassword"
