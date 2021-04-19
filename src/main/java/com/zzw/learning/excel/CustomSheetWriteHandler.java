@@ -3,6 +3,7 @@ package com.zzw.learning.excel;
 import com.alibaba.excel.write.handler.SheetWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteWorkbookHolder;
+import com.google.common.collect.Lists;
 import com.zzw.learning.annotate.ExplicitConstraint;
 import com.zzw.learning.excel.DynamicExplicitInterface.ExplicitInterface;
 import org.apache.poi.ss.usermodel.DataValidation;
@@ -15,8 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * @author : zzw
@@ -89,17 +93,22 @@ public class CustomSheetWriteHandler implements SheetWriteHandler {
         //动态下拉信息
         Class<? extends ExplicitInterface>[] classes = explicitConstraint.sourceClass();
         if (classes.length>0){
-            ExplicitInterface explicitInterface = null;
-            try {
-                explicitInterface = classes[0].newInstance();
-                String[] source1 = explicitInterface.source();
-                if (source1.length>0){
-                    return source1;
+//            ExplicitInterface explicitInterface = null;
+//            String[] source1 = explicitInterface.source();
+            List<String> sourceList = new ArrayList<>();
+            Stream.of(classes).forEach(aClass -> {
+                ExplicitInterface anInterface = null;
+                try {
+                    anInterface = aClass.newInstance();
+                    sourceList.addAll(Lists.newArrayList(anInterface.source()));
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+            });
+            if (sourceList.size()>0){
+                return (String[]) sourceList.toArray();
             }
         }
         return null;
