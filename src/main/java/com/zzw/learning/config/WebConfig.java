@@ -17,7 +17,7 @@ package com.zzw.learning.config;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
-import com.zzw.learning.Interceptor.TokenInterceptor;
+//import com.zzw.learning.Interceptor.TokenInterceptor;
 import com.zzw.learning.model.WhiteListConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,10 +43,10 @@ public class WebConfig implements WebMvcConfigurer {
     public WebConfig() {
     }
 
-    @Bean
-    public TokenInterceptor loginInterceptor() {
-        return new TokenInterceptor(this.whiteListConfig);
-    }
+//    @Bean
+//    public TokenInterceptor loginInterceptor() {
+//        return new TokenInterceptor(this.whiteListConfig);
+//    }
 
     @Bean
     public WhiteListConfig whiteListConfig() {
@@ -74,12 +74,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/doc.html/**", "/swagger-ui.html");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(loginInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/doc.html/**", "/swagger-ui.html");
+//    }
 
     /**
      * 验证码生成相关
