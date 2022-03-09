@@ -208,6 +208,12 @@
             <version>2.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- MXReflection，一个基于mXparser库功能的Java复杂计算框架  -->
+        <dependency>
+            <groupId>com.github.ismail-mekni</groupId>
+            <artifactId>mxreflection</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
     <build>
         <resources>
