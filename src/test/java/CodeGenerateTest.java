@@ -18,12 +18,12 @@ public class CodeGenerateTest {
             GenerateParams generateParams = new GenerateParams();
             generateParams.setOutputDirectory("\\src\\main\\java");
             generateParams.setAuthor("zzw");
-            generateParams.setJdbcUrl("jdbc:mysql://localhost:3306/template?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=UTC");
+            generateParams.setJdbcUrl("jdbc:mysql://localhost:3306/learning?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=UTC");
             generateParams.setJdbcDriver("com.mysql.jdbc.Driver");
             generateParams.setJdbcUserName("root");
             generateParams.setJdbcPassword("123456");
             generateParams.setParentPackage("com.zzw.learning");
-            generateParams.setIncludeTables(new String[]{"user","app_key"});
+            generateParams.setIncludeTables(new String[]{"order","order_item","product"});
             generateParams.setEntityName("%s");
 
             SimpleGenerator.doGeneration(generateParams);
