@@ -1,6 +1,7 @@
 package com.zzw.learning;
 
 import com.zzw.learning.service.IOrderFormService;
+import com.zzw.learning.service.RedisLockService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ import java.util.concurrent.*;
 public class test {
     @Autowired
     private IOrderFormService orderService;
+    @Autowired
+    private RedisLockService redisLockService;
 
     @Test
     public void test() throws Exception {
@@ -36,6 +39,28 @@ public class test {
                 try {
                     cyclicBarrier.await();
                     orderService.order("1");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+        cdl.await();
+        es.shutdown();
+    }
+
+    @Test
+    public void testRedisLock() throws Exception {
+        CountDownLatch cdl = new CountDownLatch(5);
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(5);
+
+        ExecutorService es = Executors.newFixedThreadPool(5);
+        for (int i = 0; i < 5; i++) {
+            es.execute(() -> {
+                try {
+                    cyclicBarrier.await();
+                    redisLockService.sendMsg();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (BrokenBarrierException e) {

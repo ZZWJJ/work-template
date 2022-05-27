@@ -76,7 +76,7 @@ public class TeacherController {
 
         EasyExcel.write(response.getOutputStream(), TeacherExportParam.class)
                 .autoCloseStream(Boolean.FALSE)
-                .registerWriteHandler(new CustomSheetWriteHandler(TeacherExportParam.class.getDeclaredFields(),1))
+                .registerWriteHandler(new CustomSheetWriteHandler(TeacherExportParam.class.getDeclaredFields(), 1))
                 .sheet("教职工档案")
                 .doWrite(Collections.emptyList());
     }
@@ -133,7 +133,7 @@ public class TeacherController {
                 e.printStackTrace();
             }
         }
-        return DCResponse.error(500,"生成失败");
+        return DCResponse.error(500, "生成失败");
     }
 
 

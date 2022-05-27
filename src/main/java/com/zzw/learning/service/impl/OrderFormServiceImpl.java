@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author zzw
@@ -48,18 +48,18 @@ public class OrderFormServiceImpl extends ServiceImpl<OrderFormMapper, OrderForm
 //    @Transactional
     public void order(String id) {
         Product product = null;
-        synchronized (this){
+        synchronized (this) {
             product = productService.getById(id);
-            if (ObjectUtil.isEmpty(product)){
-                throw new ServiceException(1111,"未找到该商品");
+            if (ObjectUtil.isEmpty(product)) {
+                throw new ServiceException(1111, "未找到该商品");
             }
 
             TransactionStatus transactionStatus = platformTransactionManager.getTransaction(transactionDefinition);
             int currentAmount = product.getAmount();
 
-            if (purchaseProductNum > currentAmount){
+            if (purchaseProductNum > currentAmount) {
                 platformTransactionManager.rollback(transactionStatus);
-                throw new ServiceException(1111,"库存不满足");
+                throw new ServiceException(1111, "库存不满足");
             }
 
             product.setAmount(currentAmount - purchaseProductNum);
