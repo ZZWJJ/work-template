@@ -2,6 +2,8 @@ package com.zzw.learning;
 
 import com.zzw.learning.service.IOrderFormService;
 import com.zzw.learning.service.RedisLockService;
+import com.zzw.learning.zklock.ZkLock;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import java.util.concurrent.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ComponentScan("com.zzw.learning")
+@Slf4j
 public class test {
     @Autowired
     private IOrderFormService orderService;
@@ -70,5 +73,27 @@ public class test {
         }
         cdl.await();
         es.shutdown();
+    }
+
+    @Test
+    public void testZkLock() throws Exception {
+//        CountDownLatch cdl = new CountDownLatch(5);
+//        CyclicBarrier cyclicBarrier = new CyclicBarrier(5);
+
+//        ExecutorService es = Executors.newFixedThreadPool(5);
+        for (int i = 0; i < 5; i++) {
+            log.info("我进入了方法");
+            // 设置了自动关闭AutoCloseable，若不放在try的（）内，则不会自动关闭
+            try(ZkLock zkLock = new ZkLock()) {
+                if (zkLock.getLock("order")) {
+                    log.info("我获取了锁");
+                    Thread.sleep(10);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+//        cdl.await();
+//        es.shutdown();
     }
 }
