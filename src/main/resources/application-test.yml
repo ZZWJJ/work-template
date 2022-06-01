@@ -1,10 +1,67 @@
-app:
-  id: smart-campus # 这边的id对应apollo配置里面的AppId
-apollo:
-  meta: http://192.168.1.200:8080 # 这边写开发、测试环境、正式环境对应的部署地址
-  bootstrap:
-    enabled: true
-    namespaces: basicdata.yml  # 如果后缀是properties可以省略，否则必须带上
-    eagerLoad:
-      enabled: true # 一般配置了日志，就必须加上不然不会再日志之前加载配置
+server:
+  port: 8803
+  servlet:
+    context-path: /learn
 
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/template?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+  redis:
+    host: 10.100.40.75
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 20
+#  kafka:
+#    bootstrap-servers: 192.168.1.200:9092
+#    consumer:
+#      group-id: user-log-group
+#      auto-offset-reset: earliest
+#      enable-auto-commit: true
+#      auto-commit-interval: 100
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    producer:
+#      acks: -1
+#      client-id: user-log
+#      batch-size: 500
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+mybatis-plus:
+  typeAliasesPackage: com.zzw.learning.entity
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  global-config:
+    field-strategy: 1
+    db-config:
+      field-strategy: NOT_NULL
+      id-type: ID_WORKER_STR
+      db-type: mysql
+    banner: false
+whitelist:
+  whitelist[0]: "/**/loginByCode"
+  whitelist[1]: "/**/loginByPassword"
+  whitelist[2]: "/**/sendMessageInfo"
+  whitelist[3]: "/**/quickLogin"
+  whitelist[4]: "/**/register"
+  whitelist[5]: "/**/verifyCode"
+  whitelist[6]: "/**/resetPassWord"
+  whitelist[7]: "/**/api-docs"
+  whitelist[8]: "/**/area/**"
+  whitelist[9]: "/**/userRole/listUserRole"
+  whitelist[10]: "/**/completeUser"
+  whitelist[11]: "/**/auth"
+  whitelist[12]: "/**/login"
+  whitelist[13]: "/**/createUser"
+  whitelist[14]: "/**/roles/**"
+  whitelist[15]: "/**/role/**"
+  whitelist[16]: "/**/admin/**"
+  whitelist[17]: "/**/dept/**"
+
+logging:
+  level:
+    com.fineway.disaster.usregion.serv: DEBUG

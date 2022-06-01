@@ -2,12 +2,7 @@ spring:
   application:
     name: learning
   profiles:
-    active: local
-
-server:
-  port: 8802
-  servlet:
-    context-path: /learn
+    active: test
 
 mybatis-plus:
   global-config:

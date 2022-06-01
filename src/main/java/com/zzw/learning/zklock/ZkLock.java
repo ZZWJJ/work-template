@@ -79,7 +79,7 @@ public class ZkLock implements AutoCloseable, Watcher {
     public void close() throws Exception {
         zooKeeper.delete(znode, -1);
         zooKeeper.close();
-        log.info("我释放了锁");
+        log.info("我释放了锁:" + znode);
     }
 
     @Override

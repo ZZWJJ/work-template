@@ -1,3 +1,8 @@
+server:
+  port: 8802
+  servlet:
+    context-path: /learn
+
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
