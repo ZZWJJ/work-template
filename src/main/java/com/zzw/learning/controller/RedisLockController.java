@@ -5,6 +5,8 @@ import com.zzw.learning.config.CuratorConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @version:1.0
  */
 @RestController
-@RequestMapping("/lock")
+@RequestMapping("")
 @Slf4j
 public class RedisLockController {
 
@@ -29,11 +31,25 @@ public class RedisLockController {
     private RedisLockService redisLockService;
     @Autowired
     private CuratorConfig curatorConfig;
+    @Autowired
+    private RedissonClient redissonClient;
 
 
     @GetMapping("/redis/send")
-    public void sendMsg(){
+    public void sendMsg() {
         redisLockService.sendMsg();
+    }
+
+    @GetMapping("/redisson/lock")
+    public void redissonLock() throws InterruptedException {
+        log.info("我进入了方法！！");
+        RLock rLock = redissonClient.getLock("order");
+        if (rLock.tryLock(30, TimeUnit.SECONDS)) {
+            log.info("我获得了锁！！");
+            Thread.sleep(10000);
+        }
+        rLock.unlock();
+        log.info("我释放了锁！！");
     }
 
     @GetMapping("/curator/lock")
