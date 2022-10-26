@@ -55,17 +55,17 @@ public class RedisLockController {
     @GetMapping("/curator/lock")
     public void curatorLock() throws Exception {
         log.info("我进入了方法");
-        CuratorFramework client = curatorConfig.getCuratorClient();
-        InterProcessMutex lock = new InterProcessMutex(client, "/order");
-        try {
-            if (lock.acquire(30, TimeUnit.SECONDS)) {
-                log.info("我获取了锁");
-                Thread.sleep(10000);
-            }
-        } finally {
-            log.info("我释放了锁");
-            lock.release();
-        }
+//        CuratorFramework client = curatorConfig.getCuratorClient();
+//        InterProcessMutex lock = new InterProcessMutex(client, "/order");
+//        try {
+//            if (lock.acquire(30, TimeUnit.SECONDS)) {
+//                log.info("我获取了锁");
+//                Thread.sleep(10000);
+//            }
+//        } finally {
+//            log.info("我释放了锁");
+//            lock.release();
+//        }
         log.info("方法执行完成");
     }
 

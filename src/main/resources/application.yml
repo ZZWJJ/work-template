@@ -3,6 +3,9 @@ spring:
     name: learning
   profiles:
     active: test
+  elasticsearch:
+    rest:
+      uris: localhost:9200
 
 mybatis-plus:
   global-config:

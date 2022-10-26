@@ -19,11 +19,11 @@ import org.springframework.stereotype.Component;
 @Configuration
 public class CuratorConfig {
 
-    @Bean(initMethod = "start", destroyMethod = "close")
-    public CuratorFramework getCuratorClient(){
-        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-        return CuratorFrameworkFactory.newClient("localhost:2181", retryPolicy);
-    }
+//    @Bean(initMethod = "start", destroyMethod = "close")
+//    public CuratorFramework getCuratorClient(){
+//        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
+//        return CuratorFrameworkFactory.newClient("localhost:2181", retryPolicy);
+//    }
 
 
 }
